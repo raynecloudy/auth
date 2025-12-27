@@ -4,7 +4,7 @@
 }
 
 :root {
-  --background: #040405;
+  --background: #010102;
   --background-main: #07060a;
   --text: rgb(240, 233, 255);
   --outline: #211e2b;
@@ -25,8 +25,33 @@ body {
 
 main {
   background-color: var(--background-main);
-  border-radius: 1.5rem;
+  border-radius: 2rem;
   padding: 2rem;
   outline: 0.0625rem solid var(--outline);
-  max-width: calc(100% - 2rem);
+  max-width: calc(100% - 4rem);
+  max-height: calc(100% - 4rem);
+  width: 25rem;
+  overflow: scroll;
+}
+
+a.button, button {
+  background-color: var(--text);
+  color: var(--background-main);
+  border-radius: 1rem;
+  display: block;
+  padding: 0.5rem 1rem;
+  font: inherit;
+  border: none;
+  text-decoration: none;
+  user-select: none;
+  text-align: center;
+}
+
+.action-row {
+  display: flex;
+  gap: 1rem;
+}
+
+.action-row > * {
+  flex-grow: 1;
 }
