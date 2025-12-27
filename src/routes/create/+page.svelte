@@ -1,5 +1,5 @@
 <script lang="ts">
-  let email = $state("");
+  let username = $state("");
   let password = $state("");
   let read = $state(false);
 </script>
@@ -9,15 +9,15 @@
   const res = fetch("/create", {
     method: "POST",
     body: JSON.stringify({
-      email,
-      password
+      password,
+      username
     })
   });
 })}>
   <div>
-    <label for="email">Email</label>
-    <input type="email" id="email" bind:value={email} oninput={() => {
-      email = email.replace(/\s/gmi, "");
+    <label for="username">Username</label>
+    <input type="text" id="username" bind:value={username} oninput={() => {
+      username = username.replace(/\s/gmi, "");
     }} required>
   </div>
   <div>
