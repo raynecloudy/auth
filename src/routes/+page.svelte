@@ -10,11 +10,11 @@
   <div class="flex">
     <div style:flex-grow="1">
       <h1>Dashboard</h1>
-      <p>Logged in as {#if account.name && account.name.length > 0}
+      <span>Logged in as {#if account.name && account.name.length > 0}
         <b>{account.name}</b> (@{account.username})
       {:else}
         <b>@{account.username}</b>
-      {/if}</p>
+      {/if}</span>
     </div>
     <img src="/avatars/{account.id}" class="avatar" alt={account.name ?? account.username}>
   </div>
