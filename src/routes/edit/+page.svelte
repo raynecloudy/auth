@@ -48,8 +48,8 @@
   <div class="flex">
     <div>
       <label for="avatar">Avatar</label>
-      <input type="file" id="avatar" accept="image/gif, image/jpeg, image/png, image/webp" bind:files={avatar}>
-      <sub>Supported types: GIF, JPEG, PNG, WEBP, maximum 300 KB</sub>
+      <input type="file" id="avatar" accept="image/avif, image/gif, image/jpeg, image/png, image/webp" bind:files={avatar}>
+      <sub>Supported types: AVIF, GIF, JPEG, PNG, WEBP, maximum 300 KB</sub>
     </div>
     <img src={avatarDataURL} class="avatar" alt={data.account.name ?? data.account.username}>
   </div>

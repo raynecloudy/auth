@@ -31,7 +31,7 @@ export const POST: RequestHandler = async ({ cookies, request }) => {
   if (typeof name !== "string") throw error(400, "Password is not a string");
   if (typeof username !== "string") throw error(400, "Username is not a string");
 
-  if (avatarType && !(avatarType === "image/gif" || avatarType === "image/jpeg" || avatarType === "image/png" || avatarType === "image/webp")) throw error(400, "Avatar has unsupported MIME type");
+  if (avatarType && !(avatarType === "image/avif" || avatarType === "image/gif" || avatarType === "image/jpeg" || avatarType === "image/png" || avatarType === "image/webp")) throw error(400, "Avatar has unsupported MIME type");
   if (avatarStream && dataURItoBlob(avatarStream).size > 300000) throw error(400, "Avatar is too large (maximum 300 KB)");
 
   if (username !== username.replace(/\s/gmi, "")) throw error(400, "Username contains whitespace characters");
