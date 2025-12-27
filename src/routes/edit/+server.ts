@@ -20,6 +20,6 @@ export const POST: RequestHandler = async ({ cookies, request }) => {
   if (await db.get("SELECT * FROM accounts WHERE username = ? AND authCode != ?", [username, authCode])) throw error(400, "Username is taken");
   else {
     await db.run("UPDATE accounts SET name = ?, username = ? WHERE authCode = ?", [name, username, authCode]);
-    return new Response(authCode);
+    return new Response();
   }
 };

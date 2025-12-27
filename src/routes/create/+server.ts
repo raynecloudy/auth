@@ -24,6 +24,6 @@ export const POST: RequestHandler = async ({ cookies, request }) => {
       path: "/"
     })
     await db.run("INSERT INTO accounts (authCode, joined, password, username) VALUES (?, ?, ?, ?)", [authCode, Date.now(), await hash(password, 10), username]);
-    return new Response(authCode);
+    return new Response();
   }
 };
