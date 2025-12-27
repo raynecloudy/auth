@@ -56,6 +56,10 @@ main {
   cursor: pointer;
 }
 
+.action-row :is(.button, button) {
+  border-radius: 0.75rem;
+}
+
 :is(.button, button):disabled {
   background-color: transparent;
   color: var(--text);
@@ -91,7 +95,9 @@ input:not([type="submit"], [type="checkbox"]) {
 
 .action-row {
   display: flex;
+  border-radius: 1rem;
   gap: 1rem;
+  overflow: hidden;
 }
 
 .action-row > * {
