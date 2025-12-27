@@ -1,21 +1,43 @@
 <script lang="ts">
   const { data } = $props();
 
+  let avatar: FileList | undefined = $state();
   // svelte-ignore state_referenced_locally
   let name = $state(data.account?.name);
   // svelte-ignore state_referenced_locally
   let username = $state(data.account?.username);
 
   let error = $state("");
+
+  // svelte-ignore state_referenced_locally
+  let avatarDataURL = $state("/avatars/".concat(data.account!.id.toString()));
+
+  $effect(() => {
+    (async () => {
+      const avatarData = avatar?.item(0);
+      if (avatarData) avatarDataURL = await new Promise((resolve) => {
+        const reader = new FileReader();
+        reader.onloadend = () => resolve(reader.result?.toString() ?? "/avatars/".concat(data.account!.id.toString()));
+        reader.readAsDataURL(avatarData);
+      });
+    })();
+  });
 </script>
 
 <h1>Update your profile</h1>
 {#if data.account}
   <form onsubmit={async () => {
     error = "";
+    const avatarData = avatar?.item(0);
     const res = await fetch("/edit", {
       method: "POST",
       body: JSON.stringify({
+        avatarType: avatarData ? avatarData.type : null,
+        avatarStream: avatarData ? await new Promise((resolve) => {
+          const reader = new FileReader();
+          reader.onloadend = () => resolve(reader.result);
+          reader.readAsDataURL(avatarData);
+        }) : null,
         name,
         username
       })
@@ -23,6 +45,14 @@
     if (res.ok) location.href = "/";
     else error = (await res.json()).message;
   }}>
+  <div class="flex">
+    <div>
+      <label for="avatar">Avatar</label>
+      <input type="file" id="avatar" accept="image/gif, image/jpeg, image/png, image/webp" bind:files={avatar}>
+      <sub>Supported types: GIF, JPEG, PNG, WEBP, maximum 300 KB</sub>
+    </div>
+    <img src={avatarDataURL} class="avatar" alt={data.account.name ?? data.account.username}>
+  </div>
     <div>
       <label for="name">Name</label>
       <input type="text" id="name" bind:value={name}>

@@ -7,12 +7,17 @@
 </script>
 
 {#if account}
-  <h1>Dashboard</h1>
-  <p>Logged in as {#if account.name && account.name.length > 0}
-    <b>{account.name}</b> (@{account.username})
-  {:else}
-    <b>@{account.username}</b>
-  {/if}</p>
+  <div class="flex">
+    <div style:flex-grow="1">
+      <h1>Dashboard</h1>
+      <p>Logged in as {#if account.name && account.name.length > 0}
+        <b>{account.name}</b> (@{account.username})
+      {:else}
+        <b>@{account.username}</b>
+      {/if}</p>
+    </div>
+    <img src="/avatars/{account.id}" class="avatar" alt={account.name ?? account.username}>
+  </div>
   <p><sub>Joined {new Date(account.joined).toDateString()}</sub></p>
   <a href="/edit" class="button">Edit profile</a>
 {:else}

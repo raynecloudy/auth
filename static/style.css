@@ -68,7 +68,7 @@ main {
   
 }
 
-form > div:not(:has(input[type="checkbox"])) > label {
+form div:not(:has(input[type="checkbox"])) > label {
   display: block;
   width: fit-content;
   background-color: inherit;
@@ -125,4 +125,15 @@ a:not(.button) {
 
 .error {
   color: var(--error);
+}
+
+.flex {
+  display: flex;
+  gap: 1rem;
+}
+
+.avatar {
+  border-radius: 35%;
+  aspect-ratio: 1 / 1;
+  height: 6rem;
 }
