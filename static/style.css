@@ -34,7 +34,7 @@ main {
   overflow: scroll;
 }
 
-a.button, button {
+.button, button {
   background-color: var(--text);
   color: var(--background-main);
   border-radius: 1rem;
@@ -45,6 +45,40 @@ a.button, button {
   text-decoration: none;
   user-select: none;
   text-align: center;
+  cursor: pointer;
+}
+
+:is(.button, button):disabled {
+  background-color: transparent;
+  color: var(--text);
+  outline: 0.0625rem dashed var(--outline);
+  cursor: default;
+  
+}
+
+form > div:not(:has(input[type="checkbox"])) > label {
+  display: block;
+  width: fit-content;
+  background-color: inherit;
+  font-size: 0.8rem;
+  line-height: 0.2rem;
+  padding: 0 0.2rem;
+  position: relative;
+  left: 1rem;
+}
+
+input:not([type="submit"], [type="checkbox"]) {
+  background-color: inherit;
+  color: inherit;
+  outline: 0.0625rem solid var(--outline);
+  border-radius: 1rem;
+  display: block;
+  padding: 0.5rem 1rem;
+  font: inherit;
+  border: none;
+  text-decoration: none;
+  user-select: none;
+  width: calc(100% - 2rem);
 }
 
 .action-row {
@@ -54,4 +88,23 @@ a.button, button {
 
 .action-row > * {
   flex-grow: 1;
+}
+
+form {
+  background-color: inherit;
+  display: flex;
+  gap: 1.5rem;
+  flex-direction: column;
+}
+
+form div {
+  background-color: inherit;
+}
+
+sub {
+  font-size: 0.8rem;
+}
+
+a:not(.button) {
+  color: var(--text);
 }
