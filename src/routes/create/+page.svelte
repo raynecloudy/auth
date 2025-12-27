@@ -5,7 +5,15 @@
 </script>
 
 <h1>Create account</h1>
-<form>
+<form onsubmit={(() => {
+  const res = fetch("/create", {
+    method: "POST",
+    body: JSON.stringify({
+      email,
+      password
+    })
+  });
+})}>
   <div>
     <label for="email">Email</label>
     <input type="email" id="email" bind:value={email} oninput={() => {
