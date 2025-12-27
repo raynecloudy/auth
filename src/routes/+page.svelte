@@ -7,18 +7,14 @@
 </script>
 
 {#if account}
-  <div class="flex">
-    <div style:flex-grow="1">
-      <h1>Dashboard</h1>
-      <span>Logged in as {#if account.name && account.name.length > 0}
-        <b>{account.name}</b> (@{account.username})
-      {:else}
-        <b>@{account.username}</b>
-      {/if}</span>
-    </div>
+  <div class="profile">
     <img src="/avatars/{account.id}" class="avatar" alt={account.name ?? account.username}>
+    <div>
+      <h2>{account.name ?? account.username}</h2>
+      <div>@{account.username}</div>
+      <div><sub>Joined {new Date(account.joined).toDateString()}</sub></div>
+    </div>
   </div>
-  <p><sub>Joined {new Date(account.joined).toDateString()}</sub></p>
   <a href="/edit" class="button">Edit profile</a>
 {:else}
   <h1>auth.rayne.page</h1>

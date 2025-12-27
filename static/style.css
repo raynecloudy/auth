@@ -40,6 +40,9 @@ main {
   max-height: calc(100% - 4rem);
   width: 25rem;
   overflow: scroll;
+  display: flex;
+  flex-direction: column;
+  gap: 1lh;
 }
 
 .button, button {
@@ -127,7 +130,7 @@ a:not(.button) {
   color: var(--error);
 }
 
-.flex {
+.flex, .profile {
   display: flex;
   gap: 1rem;
 }
@@ -136,4 +139,20 @@ a:not(.button) {
   border-radius: 35%;
   aspect-ratio: 1 / 1;
   height: 6rem;
+}
+
+.profile {
+  margin: 1lh 0;
+}
+
+.profile h2 {
+  margin: 0;
+}
+
+.profile > div > div:not(:has(sub)) {
+  margin: 0.5rem 0;
+}
+
+main > :is(h1, h2, p, .profile) {
+  margin: 0;
 }
