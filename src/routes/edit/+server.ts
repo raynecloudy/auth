@@ -17,7 +17,7 @@ export const POST: RequestHandler = async ({ cookies, request }) => {
   if (username.length < 1) throw error(400, "Username too short (minimum 1 character)");
   if (username.length > 30) throw error(400, "Username too long (maximum 30 characters)");
 
-  if (await db.get("SELECT * FROM accounts WHERE username = ? AND authCode != ?", [username, authCode])) throw error(400, "Username is taken");
+  if (await db.get("SELECT * FROM accounts WHERE username = ? AND authCode != ?", [username, authCode])) throw error(409, "Username is taken");
   else {
     await db.run("UPDATE accounts SET name = ?, username = ? WHERE authCode = ?", [name, username, authCode]);
     return new Response();

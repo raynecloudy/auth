@@ -17,7 +17,7 @@ export const POST: RequestHandler = async ({ cookies, request }) => {
   if (password.length < 8) throw error(400, "Password too short (minimum 8 characters)");
   if (password.length > 60) throw error(400, "Password too long (maximum 60 characters)");
 
-  if (await db.get("SELECT * FROM accounts WHERE username = ?", [username])) throw error(400, "Username is taken");
+  if (await db.get("SELECT * FROM accounts WHERE username = ?", [username])) throw error(409, "Username is taken");
   else {
     const authCode = cryptoRandomString({ length: 100 });
     cookies.set("auth", authCode, {
