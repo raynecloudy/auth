@@ -34,7 +34,10 @@
       username = username!.replace(/\s/gmi, "");
     }}>
     </div>
-    <input type="submit" value="Update profile" class="button">
+    <div class="action-row">
+      <a href="/" class="button">Cancel</a>
+      <input type="submit" value="Update profile" class="button">
+    </div>
   </form>
   {#if error.length > 1}
     <p class="error">{error}</p>
