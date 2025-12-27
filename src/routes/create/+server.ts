@@ -4,7 +4,7 @@ import { error } from "@sveltejs/kit";
 import { hash } from "bcrypt";
 import type { RequestHandler } from "./$types";
 
-export const POST: RequestHandler = async ({ cookies, request }) => {
+export const POST: RequestHandler = async ({ request }) => {
   const { password, username } = await request.json();
 
   if (typeof password !== "string") throw error(400, "Password is not a string");
@@ -17,7 +17,7 @@ export const POST: RequestHandler = async ({ cookies, request }) => {
   if (password.length < 8) throw error(400, "Password too short (minimum 8 characters)");
   if (password.length > 60) throw error(400, "Password too long (maximum 60 characters)");
 
-  if (await db.run("SELECT * FROM accounts WHERE username = ?", [username])) throw error(400, "Username is taken");
+  if (await db.get("SELECT * FROM accounts WHERE username = ?", [username])) throw error(400, "Username is taken");
   else {
     const authCode = cryptoRandomString({ length: 100 });
     await db.run("INSERT INTO accounts (authCode, joined, password, username) VALUES (?, ?, ?, ?)", [authCode, Date.now(), await hash(password, 10), username]);
