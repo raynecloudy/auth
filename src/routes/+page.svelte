@@ -8,8 +8,9 @@
 
 {#if account}
   <h1>Dashboard</h1>
-  <p>Logged in as <b>@{account.username}</b></p>
+  <p>Logged in as <b>{account.name.length > 0 ? account.name.concat(" (@", account.username, ")") : "@".concat(account.username)}</b></p>
   <p><sub>Joined {new Date(account.joined).toDateString()}</sub></p>
+  <a href="/edit" class="button">Edit profile</a>
 {:else}
   <h1>auth.rayne.page</h1>
   <h2>What is this?</h2>
