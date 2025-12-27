@@ -1,6 +1,13 @@
 @font-face {
   font-family: "Funnel Sans";
   src: url("/fonts/FunnelSans-Regular.ttf");
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: "Funnel Sans";
+  src: url("/fonts/FunnelSans-Bold.ttf");
+  font-weight: bold;
 }
 
 :root {

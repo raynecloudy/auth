@@ -4,7 +4,7 @@ import { error } from "@sveltejs/kit";
 import { hash } from "bcrypt";
 import type { RequestHandler } from "./$types";
 
-export const POST: RequestHandler = async ({ request }) => {
+export const POST: RequestHandler = async ({ cookies, request }) => {
   const { password, username } = await request.json();
 
   if (typeof password !== "string") throw error(400, "Password is not a string");
@@ -20,6 +20,9 @@ export const POST: RequestHandler = async ({ request }) => {
   if (await db.get("SELECT * FROM accounts WHERE username = ?", [username])) throw error(400, "Username is taken");
   else {
     const authCode = cryptoRandomString({ length: 100 });
+    cookies.set("auth", authCode, {
+      path: "/"
+    })
     await db.run("INSERT INTO accounts (authCode, joined, password, username) VALUES (?, ?, ?, ?)", [authCode, Date.now(), await hash(password, 10), username]);
     return new Response(authCode);
   }
