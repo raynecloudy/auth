@@ -30,7 +30,7 @@
     <input type="password" id="password" bind:value={password} required>
   </div>
   <div>
-    <input type="checkbox" id="read" bind:checked={read}><label for="read">I have read and agree to the <a href="/terms">Terms of Service</a> and the <a href="/privacy">Privacy Policy</a></label>
+    <input type="checkbox" id="read" bind:checked={read}><label for="read">I have read and agree to the <a href="/terms">Terms of Service</a> and the <a href="/privacy">Privacy Statement</a></label>
   </div>
   <input type="submit" value="Create account" class="button" disabled={!read}>
   {#if error.length > 1}

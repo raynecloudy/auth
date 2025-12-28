@@ -16,7 +16,7 @@
     <a href="/sessions" class="button">Session tracker</a>
   </div>
 {:else}
-  <h1>auth.rayne.page</h1>
+  <h1>RAuth</h1>
   <h2>What is this?</h2>
   <p>This service handles and centralizes authentication across projects I own. It gives you a persistent identifier usable throughout my ecosystem.</p>
   <div class="action-row">
