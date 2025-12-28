@@ -1,11 +1,13 @@
+import type { Account } from "$lib";
 import cryptoRandomString from "crypto-random-string";
 import { db } from "../hooks.server";
 import { error } from "@sveltejs/kit";
 import { hash } from "bcrypt";
 import type { RequestHandler } from "./$types";
 
-export const POST: RequestHandler = async ({ cookies, request }) => {
+export const POST: RequestHandler = async ({ cookies, getClientAddress, request }) => {
   const { password, username } = await request.json();
+  console.log(getClientAddress());
 
   if (typeof password !== "string") throw error(400, "Password is not a string");
   if (typeof username !== "string") throw error(400, "Username is not a string");
@@ -22,8 +24,10 @@ export const POST: RequestHandler = async ({ cookies, request }) => {
     const authCode = cryptoRandomString({ length: 100 });
     cookies.set("auth", authCode, {
       path: "/"
-    })
-    await db.run("INSERT INTO accounts (authCode, joined, password, username) VALUES (?, ?, ?, ?)", [authCode, Date.now(), await hash(password, 10), username]);
+    });
+    const passwordHash = await hash(password, 10);
+    await db.run("INSERT INTO accounts (joined, password, username) VALUES (?, ?, ?)", [Date.now(), passwordHash, username]);
+    await db.run("INSERT INTO sessions (code, id, ip, userAgent) VALUES (?, ?, ?, ?)", [authCode, (await db.get("SELECT `id` FROM accounts WHERE username = ? AND password = ?", [username, passwordHash]) as { id: number }).id, getClientAddress(), request.headers.get("User-Agent")]);
     return new Response();
   }
 };

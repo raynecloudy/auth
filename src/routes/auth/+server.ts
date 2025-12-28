@@ -4,22 +4,20 @@ import { error, text } from "@sveltejs/kit";
 import { hash } from "bcrypt";
 import type { RequestHandler } from "./$types";
 
-export const POST: RequestHandler = async ({ cookies, request }) => {
+export const POST: RequestHandler = async ({ cookies, getClientAddress, request }) => {
   const { password, username } = await request.json();
 
   if (typeof password !== "string") throw error(400, "Password is not a string");
   if (typeof username !== "string") throw error(400, "Username is not a string");
 
-  const account: any = await db.get("SELECT * FROM accounts WHERE username = ? AND password = ?", [username, await hash(password, 10)]);
+  const passwordHash = await hash(password, 10);
+  const account: any = await db.get("SELECT * FROM accounts WHERE username = ? AND password = ?", [username, passwordHash]);
   if (account) {
-    let authCode = account.authCode;
-    if (!account.authCode) {
-      authCode = cryptoRandomString({ length: 100 });
-      cookies.set("auth", authCode, {
-        path: "/"
-      });
-      await db.run("UPDATE accounts SET authCode = ? WHERE username = ? AND password = ?", [username, password]);
-    }
+    const authCode = cryptoRandomString({ length: 100 });
+    cookies.set("auth", authCode, {
+      path: "/"
+    });
+    await db.run("INSERT INTO sessions (code, id, ip, userAgent) VALUES (?, ?, ?, ?)", [authCode, (await db.get("SELECT `id` FROM accounts WHERE username = ? AND password = ?", [username, passwordHash]) as { id: number }).id, getClientAddress(), request.headers.get("User-Agent")]);
     return text(authCode);
   } else throw error(400, "Incorrect credentials");
 };

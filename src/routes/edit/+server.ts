@@ -28,7 +28,7 @@ export const POST: RequestHandler = async ({ cookies, request }) => {
 
   if (avatarType && typeof avatarType !== "string") throw error(400, "Avatar type is not a string");
   if (avatarStream && typeof avatarStream !== "string") throw error(400, "Avatar stream is not a string");
-  if (typeof name !== "string") throw error(400, "Password is not a string");
+  if (name && typeof name !== "string") throw error(400, "Name is not a string");
   if (typeof username !== "string") throw error(400, "Username is not a string");
 
   if (avatarType && !(avatarType === "image/avif" || avatarType === "image/gif" || avatarType === "image/jpeg" || avatarType === "image/png" || avatarType === "image/webp")) throw error(400, "Avatar has unsupported MIME type");
@@ -36,15 +36,17 @@ export const POST: RequestHandler = async ({ cookies, request }) => {
 
   if (username !== username.replace(/\s/gmi, "")) throw error(400, "Username contains whitespace characters");
 
-  if (name.length > 50) throw error(400, "Name too long (maximum 50 characters)");
+  if (name && name.length > 50) throw error(400, "Name too long (maximum 50 characters)");
   if (username.length < 1) throw error(400, "Username too short (minimum 1 character)");
   if (username.length > 30) throw error(400, "Username too long (maximum 30 characters)");
 
-  if (await db.get("SELECT * FROM accounts WHERE username = ? AND authCode != ?", [username, authCode])) throw error(409, "Username is taken");
+  const id = (await db.get("SELECT `id` FROM sessions WHERE code = ?", [authCode]) as { id: number }).id;
+  if (!id) throw error(404);
+  if (await db.get("SELECT * FROM accounts WHERE username = ? AND id != ?", [username, id])) throw error(409, "Username is taken");
   else {
-    await db.run("UPDATE accounts SET name = ?, username = ? WHERE authCode = ?", [name, username, authCode]);
+    await db.run("UPDATE accounts SET name = ?, username = ? WHERE id = ?", [name, username, id]);
     if (avatarType && avatarStream) {
-      await writeFile("static/avatars/".concat((await db.get("SELECT `id` FROM accounts WHERE username = ? AND authCode = ?", [username, authCode]) as { id: number }).id.toString()), await dataURItoBlob(avatarStream).bytes(), {
+      await writeFile("static/avatars/".concat(id.toString()), await dataURItoBlob(avatarStream).bytes(), {
         encoding: "binary"
       });
     }
