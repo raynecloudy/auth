@@ -16,6 +16,8 @@
   --error: #ff6b84;
   --text: #f0e9ff;
   --outline: #211e2b;
+
+  color-scheme: darkr;
 }
 
 body {
@@ -41,7 +43,7 @@ main {
   max-width: calc(100% - 4rem);
   max-height: calc(100% - 9rem);
   width: 25rem;
-  overflow: scroll;
+  overflow: auto;
   display: flex;
   flex-direction: column;
   gap: 1lh;
