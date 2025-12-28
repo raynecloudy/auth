@@ -15,7 +15,9 @@ export const POST: RequestHandler = async ({ cookies, getClientAddress, request 
   if (account && await compare(password, account.password)) {
     const authCode = cryptoRandomString({ length: 100 });
     cookies.set("auth", authCode, {
-      path: "/"
+      path: "/",
+      maxAge: 3.456e10,
+      secure: true
     });
     await db.run("INSERT INTO sessions (code, date, id, ip, userAgent) VALUES (?, ?, ?, ?, ?)", [authCode, Date.now(), (await db.get("SELECT `id` FROM accounts WHERE username = ?", [username]) as { id: number }).id, getClientAddress(), request.headers.get("User-Agent")]);
     return text(authCode);

@@ -21,7 +21,9 @@ export const POST: RequestHandler = async ({ cookies, getClientAddress, request 
   else {
     const authCode = cryptoRandomString({ length: 100 });
     cookies.set("auth", authCode, {
-      path: "/"
+      path: "/",
+      maxAge: 3.456e10,
+      secure: true
     });
     const passwordHash = await hash(password, 10);
     await db.run("INSERT INTO accounts (joined, password, username) VALUES (?, ?, ?)", [Date.now(), passwordHash, username]);
