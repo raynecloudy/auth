@@ -27,7 +27,7 @@ export const POST: RequestHandler = async ({ cookies, getClientAddress, request 
     });
     const passwordHash = await hash(password, 10);
     await db.run("INSERT INTO accounts (joined, password, username) VALUES (?, ?, ?)", [Date.now(), passwordHash, username]);
-    await db.run("INSERT INTO sessions (code, id, ip, userAgent) VALUES (?, ?, ?, ?)", [authCode, (await db.get("SELECT `id` FROM accounts WHERE username = ? AND password = ?", [username, passwordHash]) as { id: number }).id, getClientAddress(), request.headers.get("User-Agent")]);
+    await db.run("INSERT INTO sessions (code, date, id, ip, userAgent) VALUES (?, ?, ?, ?, ?)", [authCode, Date.now(), (await db.get("SELECT `id` FROM accounts WHERE username = ? AND password = ?", [username, passwordHash]) as { id: number }).id, getClientAddress(), request.headers.get("User-Agent")]);
     return new Response();
   }
 };

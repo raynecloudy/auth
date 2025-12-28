@@ -1,21 +1,20 @@
 <script lang="ts">
-  import type { Account } from "$lib";
-
   const { data } = $props();
-
-  let account: Account | null = $derived(data.account);
 </script>
 
-{#if account}
+{#if data.account}
   <div class="profile">
-    <img src="/avatars/{account.id}" class="avatar" alt={account.name ?? account.username}>
+    <img src="/avatars/{data.account.id}" class="avatar" alt={data.account.name ?? data.account.username}>
     <div>
-      <h2>{account.name ?? account.username}</h2>
-      <div>@{account.username}</div>
-      <div><sub>Joined {new Date(account.joined).toDateString()}</sub></div>
+      <h2>{data.account.name ?? data.account.username}</h2>
+      <div>@{data.account.username}</div>
+      <div><sub>Joined {new Date(data.account.joined).toDateString()}</sub></div>
     </div>
   </div>
-  <a href="/edit" class="button">Edit profile</a>
+  <div class="action-row">
+    <a href="/edit" class="button">Edit profile</a>
+    <a href="/sessions" class="button">Session tracker</a>
+  </div>
 {:else}
   <h1>auth.rayne.page</h1>
   <h2>What is this?</h2>

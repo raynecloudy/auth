@@ -4,8 +4,14 @@ export type Account = {
   banReason: string,
   id: number,
   joined: number,
-  name: string,
+  name?: string,
   username: string
+};
+
+export type Session = {
+  date: number,
+  ip: string,
+  userAgent: string
 };
 
 export const authLoad: (event: ServerLoadEvent) => Promise<{ account: Account | null }> = async ({ cookies, fetch }) => {

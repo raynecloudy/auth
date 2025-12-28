@@ -16,6 +16,7 @@ db.run(`CREATE TABLE IF NOT EXISTS accounts (
 
 db.run(`CREATE TABLE IF NOT EXISTS sessions (
   code TEXT NOT NULL,
+  date INTEGER NOT NULL,
   id INTEGER NOT NULL,
   ip TEXT,
   userAgent TEXT
