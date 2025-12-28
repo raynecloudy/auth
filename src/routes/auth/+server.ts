@@ -1,7 +1,7 @@
 import cryptoRandomString from "crypto-random-string";
 import { db } from "../hooks.server";
 import { error, text } from "@sveltejs/kit";
-import { hash } from "bcrypt";
+import { compare, hash } from "bcrypt";
 import type { RequestHandler } from "./$types";
 
 export const POST: RequestHandler = async ({ cookies, getClientAddress, request }) => {
@@ -11,13 +11,13 @@ export const POST: RequestHandler = async ({ cookies, getClientAddress, request 
   if (typeof username !== "string") throw error(400, "Username is not a string");
 
   const passwordHash = await hash(password, 10);
-  const account: any = await db.get("SELECT * FROM accounts WHERE username = ? AND password = ?", [username, passwordHash]);
-  if (account) {
+  const account: any = await db.get("SELECT * FROM accounts WHERE username = ?", [username]);
+  if (account && await compare(password, account.password)) {
     const authCode = cryptoRandomString({ length: 100 });
     cookies.set("auth", authCode, {
       path: "/"
     });
-    await db.run("INSERT INTO sessions (code, id, ip, userAgent) VALUES (?, ?, ?, ?)", [authCode, (await db.get("SELECT `id` FROM accounts WHERE username = ? AND password = ?", [username, passwordHash]) as { id: number }).id, getClientAddress(), request.headers.get("User-Agent")]);
+    await db.run("INSERT INTO sessions (code, date, id, ip, userAgent) VALUES (?, ?, ?, ?, ?)", [authCode, Date.now(), (await db.get("SELECT `id` FROM accounts WHERE username = ?", [username]) as { id: number }).id, getClientAddress(), request.headers.get("User-Agent")]);
     return text(authCode);
   } else throw error(400, "Incorrect credentials");
 };
