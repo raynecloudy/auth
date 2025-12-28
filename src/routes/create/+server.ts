@@ -6,7 +6,6 @@ import type { RequestHandler } from "./$types";
 
 export const POST: RequestHandler = async ({ cookies, getClientAddress, request }) => {
   const { password, username } = await request.json();
-  console.log(getClientAddress());
 
   if (typeof password !== "string") throw error(400, "Password is not a string");
   if (typeof username !== "string") throw error(400, "Username is not a string");

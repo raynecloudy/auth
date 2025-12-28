@@ -1,4 +1,4 @@
-import type { Account, Session } from "$lib";
+import type { Session } from "$lib";
 import { db } from "../../hooks.server";
 import { error, json } from "@sveltejs/kit";
 import type { RequestHandler } from "./$types";
