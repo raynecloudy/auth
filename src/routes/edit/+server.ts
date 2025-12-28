@@ -41,12 +41,12 @@ export const POST: RequestHandler = async ({ cookies, request }) => {
   if (username.length > 30) throw error(400, "Username too long (maximum 30 characters)");
 
   const id = (await db.get("SELECT `id` FROM sessions WHERE code = ?", [authCode]) as { id: number }).id;
-  if (!id) throw error(404);
+  if (!id) throw error(401);
   if (await db.get("SELECT * FROM accounts WHERE username = ? AND id != ?", [username, id])) throw error(409, "Username is taken");
   else {
     await db.run("UPDATE accounts SET name = ?, username = ? WHERE id = ?", [name, username, id]);
     if (avatarType && avatarStream) {
-      await writeFile("static/avatars/".concat(id.toString()), await dataURItoBlob(avatarStream).bytes(), {
+      await writeFile("database/avatars/".concat(id.toString()), await dataURItoBlob(avatarStream).bytes(), {
         encoding: "binary"
       });
     }

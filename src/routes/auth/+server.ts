@@ -1,7 +1,7 @@
 import cryptoRandomString from "crypto-random-string";
 import { db } from "../hooks.server";
 import { error, text } from "@sveltejs/kit";
-import { compare, hash } from "bcrypt";
+import { compare } from "bcrypt";
 import type { RequestHandler } from "./$types";
 
 export const POST: RequestHandler = async ({ cookies, getClientAddress, request }) => {
