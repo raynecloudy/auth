@@ -10,7 +10,6 @@ export const POST: RequestHandler = async ({ cookies, getClientAddress, request 
   if (typeof password !== "string") throw error(400, "Password is not a string");
   if (typeof username !== "string") throw error(400, "Username is not a string");
 
-  const passwordHash = await hash(password, 10);
   const account: any = await db.get("SELECT * FROM accounts WHERE username = ?", [username]);
   if (account && await compare(password, account.password)) {
     const authCode = cryptoRandomString({ length: 100 });
