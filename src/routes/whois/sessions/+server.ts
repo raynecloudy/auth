@@ -15,7 +15,6 @@ export const GET: RequestHandler = async ({ request }) => {
   if (sessions.length === 0) throw error(404);
   for (const session of sessions) {
     session.isCurrent = token === session.code;
-    session.code = undefined;
   }
   return json(sessions);
 };

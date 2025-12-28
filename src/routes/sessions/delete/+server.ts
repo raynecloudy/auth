@@ -8,6 +8,12 @@ export const POST: RequestHandler = async ({ request }) => {
   const match = cookieHeader.match(/auth=(.*)(;|$)/);
   if (!match) throw error(400, "Missing required cookie \"auth\"");
   const token = match[1];
-  await db.run("DELETE FROM sessions WHERE code = ?", [token]);
+  const { code }: {
+    code: string
+  } = await request.json();
+  const accountId = (await db.get("SELECT `id` FROM sessions WHERE code = ?", [token]) as { id: number }).id;
+  const deleteId = (await db.get("SELECT `id` FROM sessions WHERE code = ?", [code]) as { id: number }).id;
+  if (accountId !== deleteId) throw error(403);
+  await db.run("DELETE FROM sessions WHERE code = ?", [code]);
   return new Response();
 };

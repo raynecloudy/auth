@@ -23,7 +23,10 @@
       </div>
       <button class="button" onclick={async () => {
         const res = await fetch("/sessions/delete", {
-          method: "POST"
+          method: "POST",
+          body: JSON.stringify({
+            code: session.code
+          })
         });
         if (!res.ok) return;
         if (session.isCurrent) location.href = "/";

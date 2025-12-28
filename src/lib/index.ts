@@ -9,7 +9,7 @@ export type Account = {
 };
 
 export type Session = {
-  code?: string,
+  code: string,
   date: number,
   isCurrent: boolean,
   ip: string,
