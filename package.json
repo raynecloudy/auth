@@ -28,6 +28,7 @@
 		"ip2location-nodejs": "^9.7.0",
 		"nodemailer": "^7.0.12",
 		"promised-sqlite3": "^2.1.0",
-		"sqlite3": "^5.1.7"
+		"sqlite3": "^5.1.7",
+		"ua-parser-js": "^2.0.7"
 	}
 }

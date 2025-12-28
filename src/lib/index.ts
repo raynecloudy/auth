@@ -9,7 +9,9 @@ export type Account = {
 };
 
 export type Session = {
+  code?: string,
   date: number,
+  isCurrent: boolean,
   ip: string,
   userAgent: string
 };

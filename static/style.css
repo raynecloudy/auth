@@ -120,6 +120,7 @@ form div {
 
 sub {
   font-size: 0.8rem;
+  line-height: 0;
 }
 
 a:not(.button) {

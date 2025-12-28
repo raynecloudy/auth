@@ -1,4 +1,3 @@
-import type { Account } from "$lib";
 import cryptoRandomString from "crypto-random-string";
 import { db } from "../hooks.server";
 import { error } from "@sveltejs/kit";
