@@ -4,18 +4,18 @@
   const { data } = $props();
 
   let userAgent: IResult[] = $state([]);
-
-  userAgent = [];
   // svelte-ignore state_referenced_locally
-  if (data.sessions) for (const session of data.sessions) {
+  let sessions = $state(data.sessions);
+
+  if (sessions) for (const session of sessions) {
     userAgent.push(new UAParser(session.userAgent).getResult());
   }
 </script>
 
 <h1>Session tracker</h1>
-{#if data.account && data.sessions}
+{#if data.account && sessions}
 <p>Please remove any sessions you don't recognize.</p>
-{#each data.sessions as session, i}
+{#each sessions as session, i}
     <div class="flex">
       <div style:flex-grow="1">
         <h2 style:margin-top="0" title={session.userAgent}>{userAgent[i].browser.toString()} {userAgent[i].os.toString()}</h2>
@@ -26,10 +26,15 @@
           method: "POST"
         });
         if (!res.ok) return;
+        if (session.isCurrent) location.href = "";
+        else {
+          userAgent.splice(i, 1);
+          sessions.splice(i, 1);
+        }
       }}>Remove</button>
     </div>
-    <a href="/" class="button">Return</a>
   {/each}
+  <a href="/" class="button">Return</a>
 {:else}
   <p>You need to log in to view this page.</p>
   <a href="/auth" class="button">Log in</a>
