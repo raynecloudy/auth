@@ -26,7 +26,7 @@
           method: "POST"
         });
         if (!res.ok) return;
-        if (session.isCurrent) location.href = "";
+        if (session.isCurrent) location.href = "/";
         else {
           userAgent.splice(i, 1);
           sessions.splice(i, 1);
