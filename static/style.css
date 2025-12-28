@@ -136,7 +136,7 @@ a:not(.button) {
 }
 
 .avatar {
-  border-radius: 35%;
+  border-radius: 30%;
   aspect-ratio: 1 / 1;
   height: 6rem;
 }
