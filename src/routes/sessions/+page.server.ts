@@ -6,11 +6,7 @@ export const load: PageServerLoad = async (event) => {
   const auth = cookies.get("auth");
   if (!auth) return;
   const account = await authLoad(event);
-  const res = await fetch("/whois/sessions", {
-    headers: {
-      "Token": auth
-    }
-  });
+  const res = await fetch("/whois/sessions");
   const sessions = await res.json() as Session[];
   if (res.ok) return {
     account,

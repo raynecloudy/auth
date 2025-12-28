@@ -19,11 +19,7 @@ export type Session = {
 export const authLoad: (event: ServerLoadEvent) => Promise<{ account: Account | null }> = async ({ cookies, fetch }) => {
   const auth = cookies.get("auth");
   if (auth) {
-    const res = await fetch("/whois", {
-      headers: {
-        "Token": auth
-      }
-    });
+    const res = await fetch("/whois");
     if (res.ok) return {
       account: await res.json() as Account
     }; else console.log(res);
