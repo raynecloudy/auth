@@ -171,3 +171,8 @@ ul, ol {
   flex-direction: column;
   gap: 0.5lh;
 }
+
+#session-list .button {
+  writing-mode: sideways-lr;
+  text-orientation: mixed;
+}

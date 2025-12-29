@@ -16,7 +16,7 @@
 {#if data.account && sessions}
 <p>Please remove any sessions you don't recognize.</p>
 {#each sessions as session, i}
-    <div class="flex">
+    <div class="flex" id="session-list">
       <div style:flex-grow="1">
         <h2 style:margin-top="0" title={session.userAgent}>{userAgent[i].browser.toString()} {userAgent[i].os.toString()}</h2>
         <sub><code>{session.ip}</code> • {new Date(session.date).toDateString()}{#if session.isCurrent}<br>Current session{/if}</sub>
