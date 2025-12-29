@@ -12,8 +12,8 @@ export const GET: RequestHandler = async ({ params, request }) => {
   const match = cookieHeader.match(/auth=(.*)(;|$)/);
   if (!match) throw error(400, "Missing required cookie \"auth\"");
   const token = match[1];
-  const id = (await db.get("SELECT `id` FROM sessions WHERE code = ?", [token]) as { id: number }).id;
-  let path = "./database/avatars/".concat(id.toString());
+  const id = (await db.get("SELECT `id` FROM sessions WHERE code = ?", [token]) as { id: number })?.id;
+  let path = "./database/avatars/".concat(id?.toString());
   let exists = existsSync(path);
   if (!exists) path = "static/avatars/default.jpg";
   const data = await readFile(path);
