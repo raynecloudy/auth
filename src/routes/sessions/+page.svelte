@@ -21,7 +21,7 @@
         <h2 style:margin-top="0" title={session.userAgent}>{userAgent[i].browser.toString()} {userAgent[i].os.toString()}</h2>
         <sub><code>{session.ip}</code> • {new Date(session.date).toDateString()}{#if session.isCurrent}<br>Current session{/if}</sub>
       </div>
-      <button class="red" onclick={async () => {
+      <button class="orange" onclick={async () => {
         const res = await fetch("/sessions/delete", {
           method: "POST",
           body: JSON.stringify({
@@ -37,7 +37,16 @@
       }}>Remove</button>
     </div>
   {/each}
-  <a href="/" class="button">Return</a>
+  <div class="action-row">
+    <a href="/" class="button">Return</a>
+      <button class="red" onclick={async () => {
+        const res = await fetch("/sessions/delete/all", {
+          method: "POST"
+        });
+        if (!res.ok) return;
+        location.href = "/";
+      }}>Remove all</button>
+  </div>
 {:else}
   <p>You need to log in to view this page.</p>
   <a href="/auth" class="button">Log in</a>
