@@ -3,8 +3,10 @@
 </script>
 
 <svelte:head>
-  {#if data.account}
-    <title>@{data.account.username} – RAuth</title>
+  {#if data.account && data.account.name}
+    <title>{data.account.name} (@{data.account.username})</title>
+  {:else if data.account}
+    <title>@{data.account.username}</title>
   {:else}
     <title>RAuth</title>
   {/if}
@@ -12,7 +14,7 @@
 
 {#if data.account}
   <div class="profile">
-    <img src="/avatars/{data.account.id}" class="avatar" alt={data.account.name ?? data.account.username}>
+    <img src="/avatar" class="avatar" alt={data.account.name ?? data.account.username}>
     <div>
       <h2>{data.account.name ?? data.account.username}</h2>
       <div>@{data.account.username}</div>

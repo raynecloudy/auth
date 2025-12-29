@@ -10,14 +10,14 @@
   let error = $state("");
 
   // svelte-ignore state_referenced_locally
-  let avatarDataURL = $state("/avatars/".concat(data.account!.id.toString()));
+  let avatarDataURL = $state("/avatar");
 
   $effect(() => {
     (async () => {
       const avatarData = avatar?.item(0);
       if (avatarData) avatarDataURL = await new Promise((resolve) => {
         const reader = new FileReader();
-        reader.onloadend = () => resolve(reader.result?.toString() ?? "/avatars/".concat(data.account!.id.toString()));
+        reader.onloadend = () => resolve(reader.result?.toString() ?? "/avatar");
         reader.readAsDataURL(avatarData);
       });
     })();
@@ -55,7 +55,7 @@
       <input type="file" id="avatar" accept="image/avif, image/gif, image/jpeg, image/png, image/webp" bind:files={avatar}>
       <sub>Supported types: AVIF, GIF, JPEG, PNG, WEBP, maximum 300 KB</sub>
     </div>
-    <img src={avatarDataURL} class="avatar" alt={data.account.name ?? data.account.username}>
+    <img src="/avatar" class="avatar" alt={data.account.name ?? data.account.username}>
   </div>
     <div>
       <label for="name">Name</label>

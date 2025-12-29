@@ -10,6 +10,7 @@
 </svelte:head>
 
 <h1>Log in</h1>
+<p>Or <a href="/create">create an account</a></p>
 <form onsubmit={async () => {
   error = "";
   const res = await fetch("/auth", {

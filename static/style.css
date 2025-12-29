@@ -140,7 +140,7 @@ sub {
 }
 
 a:not(.button) {
-  color: inherit;
+  color: var(--indigo);
 }
 
 .error {
