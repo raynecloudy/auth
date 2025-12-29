@@ -5,6 +5,10 @@
   let error = $state("");
 </script>
 
+<svelte:head>
+  <title>Log in – RAuth</title>
+</svelte:head>
+
 <h1>Log in</h1>
 <form onsubmit={async () => {
   error = "";

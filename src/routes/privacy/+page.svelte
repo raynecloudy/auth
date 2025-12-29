@@ -1,3 +1,7 @@
+<svelte:head>
+  <title>Privacy Statement – RAuth</title>
+</svelte:head>
+
 <h1>Privacy Statement</h1>
 <p>Welcome to RAuth's Privacy Statement (“Privacy Statement”). This Privacy Statement informs the client or clients (“you”) of how RAuth (“we” or “us”) stores and processes your “Personal Data”, which is information that can be associated with you or is directly associated with you. This Privacy Statement applies to all websites and applications owned by us that display this Privacy Statement (collectively, “Services”).</p>
 <h2>Personal Data That we Collect</h2>

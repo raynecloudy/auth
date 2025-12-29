@@ -24,6 +24,10 @@
   });
 </script>
 
+<svelte:head>
+  <title>Edit profile – RAuth</title>
+</svelte:head>
+
 <h1>Update your profile</h1>
 {#if data.account}
   <form onsubmit={async () => {

@@ -12,6 +12,10 @@
   }
 </script>
 
+<svelte:head>
+  <title>Session tracker – RAuth</title>
+</svelte:head>
+
 <h1>Session tracker</h1>
 {#if data.account && sessions}
 <p>Please remove any sessions you don't recognize.</p>

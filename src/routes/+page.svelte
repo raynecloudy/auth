@@ -2,6 +2,14 @@
   const { data } = $props();
 </script>
 
+<svelte:head>
+  {#if data.account}
+    <title>@{data.account.username} – RAuth</title>
+  {:else}
+    <title>RAuth</title>
+  {/if}
+</svelte:head>
+
 {#if data.account}
   <div class="profile">
     <img src="/avatars/{data.account.id}" class="avatar" alt={data.account.name ?? data.account.username}>
