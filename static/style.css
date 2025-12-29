@@ -177,30 +177,30 @@ ul, ol {
   gap: 0.5lh;
 }
 
-#session-list .button {
+#session-list button {
   writing-mode: sideways-lr;
   text-orientation: mixed;
 }
 
-.button.red {
+:is(button, .button).red {
   outline-color: var(--red);
   background-color: var(--red-dark);
   color: var(--red);
 }
 
-.button.orange {
+:is(button, .button).orange {
   outline-color: var(--orange);
   background-color: var(--orange-dark);
   color: var(--orange);
 }
 
-.button.indigo {
+:is(button, .button).indigo {
   outline-color: var(--indigo);
   background-color: var(--indigo-dark);
   color: var(--indigo);
 }
 
-.button.pink {
+:is(button, .button).pink {
   outline-color: var(--pink);
   background-color: var(--pink-dark);
   color: var(--pink);
