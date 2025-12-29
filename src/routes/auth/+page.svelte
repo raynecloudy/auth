@@ -28,7 +28,7 @@
     <label for="password">Password</label>
     <input type="password" id="password" bind:value={password} required>
   </div>
-  <input type="submit" value="Log in" class="button">
+  <input type="submit" value="Log in" class="button pink">
   {#if error.length > 1}
     <div class="error">{error}</div>
   {/if}

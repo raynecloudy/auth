@@ -21,7 +21,7 @@
         <h2 style:margin-top="0" title={session.userAgent}>{userAgent[i].browser.toString()} {userAgent[i].os.toString()}</h2>
         <sub><code>{session.ip}</code> • {new Date(session.date).toDateString()}{#if session.isCurrent}<br>Current session{/if}</sub>
       </div>
-      <button class="button" onclick={async () => {
+      <button class="red" onclick={async () => {
         const res = await fetch("/sessions/delete", {
           method: "POST",
           body: JSON.stringify({

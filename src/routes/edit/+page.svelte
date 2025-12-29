@@ -66,7 +66,7 @@
     </div>
     <div class="action-row">
       <a href="/" class="button">Cancel</a>
-      <input type="submit" value="Update profile" class="button">
+      <input type="submit" value="Update profile" class="button pink">
     </div>
   </form>
   {#if error.length > 1}

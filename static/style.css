@@ -11,19 +11,27 @@
 }
 
 :root {
-  --background: #010102;
-  --background-main: #07060a;
-  --error: #ff6b84;
-  --text: #f0e9ff;
-  --outline: #211e2b;
+  --black: #010102;
+  --black2: #07060a;
+  --black3: #2d293b;
+  --black4: #7c70a4;
+  --white: #f0e9ff;
+  --red: #ff6b90;
+  --red-dark: #270e14;
+  --orange: #ff6964;
+  --orange-dark: #220d0c;
+  --indigo: #8c84ff;
+  --indigo-dark: #14122c;
+  --pink: #ff7eea;
+  --pink-dark: #22111f;
 
   color-scheme: darkr;
 }
 
 body {
   font-family: "Funnel Sans";
-  background-color: var(--background);
-  color: var(--text);
+  background-color: var(--black);
+  color: var(--white);
   margin: 0;
   display: flex;
   flex-direction: column;
@@ -36,10 +44,10 @@ body {
 }
 
 main {
-  background-color: var(--background-main);
+  background-color: var(--black2);
   border-radius: 2rem;
   padding: 2rem;
-  outline: 0.0625rem solid var(--outline);
+  outline: 0.0625rem solid var(--black3);
   max-width: calc(100% - 4rem);
   max-height: calc(100% - 9rem);
   width: 25rem;
@@ -54,8 +62,9 @@ main > * {
 }
 
 .button, button {
-  background-color: var(--text);
-  color: var(--background-main);
+  background-color: var(--black2);
+  color: var(--white);
+  outline: 0.0625rem solid var(--black3);
   border-radius: 1rem;
   display: block;
   padding: 0.5rem 1rem;
@@ -65,16 +74,13 @@ main > * {
   user-select: none;
   text-align: center;
   cursor: pointer;
-}
-
-.action-row :is(.button, button) {
-  border-radius: 0.75rem;
+  transition: outline-color 0.1s, color 0.1s, background-color 0.1s;
 }
 
 :is(.button, button):disabled {
   background-color: transparent;
-  color: var(--text);
-  outline: 0.0625rem dashed var(--outline);
+  color: var(--white);
+  outline: 0.0625rem dashed var(--black3);
   cursor: default;
   
 }
@@ -93,7 +99,7 @@ form div:not(:has(input[type="checkbox"])) > label {
 input:not([type="submit"], [type="checkbox"]) {
   background-color: inherit;
   color: inherit;
-  outline: 0.0625rem solid var(--outline);
+  outline: 0.0625rem solid var(--black3);
   border-radius: 1rem;
   display: block;
   padding: 0.5rem 1rem;
@@ -108,7 +114,6 @@ input:not([type="submit"], [type="checkbox"]) {
   display: flex;
   border-radius: 1rem;
   gap: 1rem;
-  overflow: hidden;
 }
 
 .action-row > * {
@@ -132,11 +137,11 @@ sub {
 }
 
 a:not(.button) {
-  color: var(--text);
+  color: inherit;
 }
 
 .error {
-  color: var(--error);
+  color: var(--red);
 }
 
 .flex, .profile {
@@ -175,4 +180,28 @@ ul, ol {
 #session-list .button {
   writing-mode: sideways-lr;
   text-orientation: mixed;
+}
+
+.button.red {
+  outline-color: var(--red);
+  background-color: var(--red-dark);
+  color: var(--red);
+}
+
+.button.orange {
+  outline-color: var(--orange);
+  background-color: var(--orange-dark);
+  color: var(--orange);
+}
+
+.button.indigo {
+  outline-color: var(--indigo);
+  background-color: var(--indigo-dark);
+  color: var(--indigo);
+}
+
+.button.pink {
+  outline-color: var(--pink);
+  background-color: var(--pink-dark);
+  color: var(--pink);
 }

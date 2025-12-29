@@ -32,7 +32,7 @@
   <div>
     <input type="checkbox" id="read" bind:checked={read}><label for="read">I have read and agree to the <a href="/terms">Terms of Service</a> and the <a href="/privacy">Privacy Statement</a></label>
   </div>
-  <input type="submit" value="Create account" class="button" disabled={!read}>
+  <input type="submit" value="Create account" class="button" class:indigo={read} disabled={!read}>
   {#if error.length > 1}
     <div class="error">{error}</div>
   {/if}
